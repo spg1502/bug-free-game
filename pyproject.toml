@@ -1,0 +1,9 @@
+# pyproject.toml
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=bug-free-game"
+testpaths = [
+    "tests",
+    "integration",
+]

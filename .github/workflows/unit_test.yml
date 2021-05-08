@@ -1,0 +1,25 @@
+name: Unit Tests
+
+on: [push, pull_request]
+
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+
+      - name: tests
+        - run: pytest
+
+      # copied from https://github.com/codecov/example-python
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
