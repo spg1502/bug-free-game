@@ -5,5 +5,4 @@ minversion = "6.0"
 addopts = "--cov=bug-free-game"
 testpaths = [
     "tests",
-    "integration",
 ]
