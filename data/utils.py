@@ -47,17 +47,16 @@ def create_debug_label(text, x_start=0, y_start=0, batch = None):
         x = x_start,
         y = y_start,
         anchor_x = 'left',
-        anchor_y = 'bottom',
+        anchor_y = 'top',
         # define font_name here
-        font_size = 8,
-        bold = True,
+        font_size = 9,
         color = (204, 0, 0, 255),
         batch = batch,
     )
 
-def create_debug_overlay(texts, x_start=0, batch = None, y_step = 10):
+def create_debug_overlay(texts, x_start=0, batch = None, y_step = 14):
     debug_lines = []
-    y = pyglet.window.Window().height - 42
+    y = pyglet.window.Window().height - 30
     for i in range(len(texts)):
         debug_line = create_debug_label(texts[i], x_start, y, batch)
         debug_lines.append(debug_line)
