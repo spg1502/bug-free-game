@@ -1,11 +1,7 @@
 import pyglet
-from pyglet.gl import glEnable
-from pyglet.gl import glBlendFunc
-from pyglet.gl import GL_BLEND
-from pyglet.gl import GL_SRC_ALPHA
-from pyglet.gl import GL_ONE_MINUS_SRC_ALPHA
-glEnable(GL_BLEND)
-glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+import pyglet.gl as pgl
+pgl.glEnable(pgl.GL_BLEND)
+pgl.glBlendFunc(pgl.GL_SRC_ALPHA, pgl.GL_ONE_MINUS_SRC_ALPHA)
 
 window = pyglet.window.Window()
 label = pyglet.text.Label("This is a game",
@@ -19,7 +15,6 @@ alienBeige = pyglet.sprite.Sprite(pyglet.image.load('../assets/alienBeige.png'))
 def on_draw():
     window.clear()
     label.draw()
-    glEnable(GL_BLEND)
     alienBeige.draw()
 
 pyglet.app.run()
