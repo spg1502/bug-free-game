@@ -2,7 +2,7 @@
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=bug-free-game"
+addopts = "--cov=game"
 testpaths = [
     "tests",
 ]
