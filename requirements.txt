@@ -1,1 +1,8 @@
 pyglet==1.5.16
+
+pytest
+pytest-cov
+
+black
+
+pre-commit
