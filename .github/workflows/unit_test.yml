@@ -15,8 +15,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
 
+      - name: install dependencies
+        run: pip install -r REQUIREMENTS.txt
+
       - name: tests
         run: pytest
+
+      - name: black formatting check
+        run: black --check .
 
       # copied from https://github.com/codecov/example-python
       - name: "Upload coverage to Codecov"
