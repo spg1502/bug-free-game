@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: tests
-        - run: pytest
+        run: pytest
 
       # copied from https://github.com/codecov/example-python
       - name: "Upload coverage to Codecov"
