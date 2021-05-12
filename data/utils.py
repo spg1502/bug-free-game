@@ -41,7 +41,8 @@ def create_menu_labels(texts, x_start = 0, y_start = 0, batch = None, y_step = 8
 
     return menu
 
-def create_debug_label(text, x_start=0, y_start=0, batch = None):
+
+def create_debug_label(text, x_start = 0, y_start = 0, batch = None):
     return pyglet.text.Label(
         text = text,
         x = x_start,
@@ -54,7 +55,8 @@ def create_debug_label(text, x_start=0, y_start=0, batch = None):
         batch = batch,
     )
 
-def create_debug_overlay(texts, x_start=0, batch = None, y_step = 14):
+
+def create_debug_overlay(texts, x_start = 0, batch = None, y_step = 14):
     debug_lines = []
     y = pyglet.window.Window().height - 30
     for i in range(len(texts)):
