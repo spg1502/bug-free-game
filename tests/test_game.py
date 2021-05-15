@@ -1,6 +1,8 @@
 import pytest
+import unittest
 
 
-@pytest.mark.skip("placeholder")
-def test_game():
-    assert True
+class TestGame(unittest.TestCase):
+    @pytest.mark.skip("placeholder")
+    def test_game(self):
+        assert True
