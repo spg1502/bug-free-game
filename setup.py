@@ -6,10 +6,10 @@ with open("README.md") as f:
 
 
 setup(
-    name="bug-free-game",
+    name="bug_free_game",
     version="0.0.0",
     description="A game which is totally free of bugs",
     long_description=long_description,
-    packages=["bug-free-game"],
+    packages=["bug_free_game"],
     install_requires=["pyglet"],
 )
