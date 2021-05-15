@@ -12,13 +12,13 @@ Getting this project set up and running locally should be easy to accomplish wit
 1. Install Python 3.9: https://www.python.org/downloads/release/python-394/
 2. Pull down the project locally with `git clone https://github.com/spg1502/bug-free-game.git`
 3. Use pip to install the project's requirements: `pip install -r REQUIREMENTS.txt`
-4. Run the game with `python -m bugFreeGame.py`
+4. Run the game with `python -m bug_free_game.py`
 
 ### Contributing
 Our dev team currently uses PyCharm as our IDE, so the following instructions will assume you're using the same.
 1. Install PyCharm: https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html
 2. Import the project into PyCharm
 3. Make your changes
-4. Run the game to view your changes by using the `.run` run configuration
-5. Test your changes with `python -m unittest tests/test_game.py`
+4. Run the game to view your changes by using the `bug_free_game` run configuration
+5. Test your changes with `pytest`
 6. If you're happy with your changes, make a pull request with `git push origin HEAD:<branch name here>`
