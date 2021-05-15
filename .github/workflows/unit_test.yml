@@ -22,7 +22,7 @@ jobs:
         run: black --check .
 
       - name: Run Tests & Generate Report
-        run: coverage run -m unittest tests\test_game.py
+        run: coverage run -m unittest tests/test_game.py
 
       # copied from https://github.com/codecov/example-python
       - name: "Upload coverage to Codecov"
