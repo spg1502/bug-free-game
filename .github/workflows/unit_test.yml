@@ -18,11 +18,11 @@ jobs:
       - name: Install Dependencies
         run: pip install -r REQUIREMENTS.txt
 
-      - name: Black Formatting Check
-        run: black --check .
-
       - name: Run Tests & Generate Report
         run: pytest
+
+      - name: Black Formatting Check
+        run: black --check .
 
       # copied from https://github.com/codecov/example-python
       - name: "Upload coverage to Codecov"
