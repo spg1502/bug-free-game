@@ -1,6 +1,6 @@
 import pyglet
 
-from data import game
+from pyglet_utils import game
 
 debug = True
 main_window = game.GameWindow(debug)

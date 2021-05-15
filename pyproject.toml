@@ -2,7 +2,8 @@
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=game"
+# TODO: Update this to look for tests in a more specific location
+addopts = "--cov-report xml:coverage.xml --cov=."
 testpaths = [
     "tests",
 ]

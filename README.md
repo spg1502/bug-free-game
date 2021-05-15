@@ -1,4 +1,4 @@
-# bug-free-game
+# bug_free_game
 Collaborative game-dev-arino project
 
 This project will be free of bugs

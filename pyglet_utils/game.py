@@ -1,7 +1,7 @@
 import pyglet
 import pyglet.clock
 from pyglet.window import key
-from data import utils, load
+from pyglet_utils import utils, load
 from time import time
 import pyglet.gl as pgl
 
