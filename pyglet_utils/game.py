@@ -1,18 +1,12 @@
 import pyglet
 import pyglet.clock
 from pyglet.window import key
-from pyglet_utils import utils, load
+from pyglet_utils import utils, load, config_loader
 from time import time
 import pyglet.gl as pgl
 
 pgl.glEnable(pgl.GL_BLEND)
 pgl.glBlendFunc(pgl.GL_SRC_ALPHA, pgl.GL_ONE_MINUS_SRC_ALPHA)
-
-# TODO: we should move these to a config file
-fps_cap = 120.0
-window_width = 800
-window_height = 450
-splash_screen_duration_in_seconds = 1
 
 
 class GameStates:
@@ -23,7 +17,10 @@ class GameStates:
 
 class GameWindow(pyglet.window.Window):
     def __init__(self, debug, *args, **kwargs):
-        super(GameWindow, self).__init__(window_width, window_height, *args, **kwargs)
+        self.config_loader = config_loader.ConfigLoader()
+        self.window_width = self.config_loader.get_window_width()
+        self.window_height = self.config_loader.get_window_height()
+        super(GameWindow, self).__init__(self.window_width, self.window_height, *args, **kwargs)
 
         self.game_state = GameStates.SPLASH_SCREEN
 
@@ -38,6 +35,7 @@ class GameWindow(pyglet.window.Window):
         if debug:
             self.debug = True
 
+        self.splash_screen_duration_in_seconds = self.config_loader.get_splash_screen_duration_in_seconds()
         self.splash_screen_batch = pyglet.graphics.Batch()
         self.splash_screen_title, self.splash_screen_logo = self.create_splash_screen(
             self.splash_screen_batch
@@ -50,7 +48,8 @@ class GameWindow(pyglet.window.Window):
         self.push_handlers(self.key_handler)
 
         # Now that all game elements are loaded, we can start calling update
-        pyglet.clock.schedule_interval(self.update, 1.0 / fps_cap)
+        self.fps_cap = self.config_loader.get_fps_cap()
+        pyglet.clock.schedule_interval(self.update, 1.0 / self.fps_cap)
 
     def create_debug_overlay(self, debug_messages, debug_overlay_batch):
         debug_text = utils.create_debug_overlay(
@@ -60,7 +59,7 @@ class GameWindow(pyglet.window.Window):
 
     def create_splash_screen(self, splash_screen_batch):
         splash_screen_title = utils.create_h1_label(
-            "Splash Screen!", 400, window_height - 42, splash_screen_batch
+            "Splash Screen!", 400, self.window_height - 42, splash_screen_batch
         )
         splash_screen_logo = load.logo(300, 150, splash_screen_batch)
         self.splash_screen_has_been_visible_since = time()
@@ -69,12 +68,12 @@ class GameWindow(pyglet.window.Window):
 
     def create_main_menu(self, main_menu_batch):
         game_title = utils.create_h1_label(
-            "Game Name!", 400, window_height - 42, main_menu_batch
+            "Game Name!", 400, self.window_height - 42, main_menu_batch
         )
         menu_label_texts = ["Start", "Exit"]
         return (
             utils.create_menu_labels(
-                menu_label_texts, 400, window_height - 150, batch=main_menu_batch
+                menu_label_texts, 400, self.window_height - 150, batch=main_menu_batch
             ),
             game_title,
         )
@@ -101,7 +100,7 @@ class GameWindow(pyglet.window.Window):
 
         if self.game_state == GameStates.SPLASH_SCREEN:
             if (
-                time() - splash_screen_duration_in_seconds
+                time() - self.splash_screen_duration_in_seconds
                 > self.splash_screen_has_been_visible_since
             ):
                 self.game_state = GameStates.MAIN_MENU
