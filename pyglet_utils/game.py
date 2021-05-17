@@ -20,7 +20,9 @@ class GameWindow(pyglet.window.Window):
         self.config_loader = config_loader.ConfigLoader()
         self.window_width = self.config_loader.get_window_width()
         self.window_height = self.config_loader.get_window_height()
-        super(GameWindow, self).__init__(self.window_width, self.window_height, *args, **kwargs)
+        super(GameWindow, self).__init__(
+            self.window_width, self.window_height, *args, **kwargs
+        )
 
         self.game_state = GameStates.SPLASH_SCREEN
 
@@ -35,7 +37,9 @@ class GameWindow(pyglet.window.Window):
         if debug:
             self.debug = True
 
-        self.splash_screen_duration_in_seconds = self.config_loader.get_splash_screen_duration_in_seconds()
+        self.splash_screen_duration_in_seconds = (
+            self.config_loader.get_splash_screen_duration_in_seconds()
+        )
         self.splash_screen_batch = pyglet.graphics.Batch()
         self.splash_screen_title, self.splash_screen_logo = self.create_splash_screen(
             self.splash_screen_batch
