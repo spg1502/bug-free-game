@@ -31,7 +31,11 @@ class GameWindow(pyglet.window.Window):
         # https://pyglet.readthedocs.io/en/latest/modules/graphics/#batches-and-groups
         self.debug_overlay_batch = pyglet.graphics.Batch()
         self.debug_overlay = self.create_debug_overlay(
-            ["Debug Menu:", "FPS: " + str(pyglet.clock.get_fps()), "Oh wait FPS is broken"],
+            [
+                "Debug Menu:",
+                "FPS: " + str(pyglet.clock.get_fps()),
+                "Oh wait FPS is broken",
+            ],
             self.debug_overlay_batch,
         )
         if debug:
