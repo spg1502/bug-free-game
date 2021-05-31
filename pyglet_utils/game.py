@@ -32,7 +32,11 @@ class GameWindow(pyglet.window.Window):
         self.debug_overlay_batch = pyglet.graphics.Batch()
         self.fps_display = pyglet.clock.get_fps()
         self.debug_overlay = self.create_debug_overlay(
-            ["Debug Menu:", "FPS: " + str(self.fps_display), "Oh wait FPS is broken"],
+            [
+                "Debug Menu (press 0 to toggle):",
+                "FPS: " + str(pyglet.clock.get_fps()),
+                "Oh wait FPS is broken",
+            ],
             self.debug_overlay_batch,
         )
         if debug:
@@ -105,3 +109,8 @@ class GameWindow(pyglet.window.Window):
                 > self.splash_screen_has_been_visible_since
             ):
                 self.game_state = GameStates.MAIN_MENU
+
+    def on_key_press(self, symbol, modifiers):
+        # Handles key presses for menus, keyboard shortcuts, and debug menu(s)
+        if symbol == key._0 or symbol == key.NUM_0:
+            self.debug = not self.debug
