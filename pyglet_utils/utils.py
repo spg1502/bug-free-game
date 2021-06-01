@@ -54,15 +54,3 @@ def create_debug_label(text, x_start=0, y_start=0, batch=None):
         color=(204, 0, 0, 255),
         batch=batch,
     )
-
-
-def create_debug_overlay(debug_lines, x_start=0, batch=None, y_step=14):
-    debug_content = []
-    #TODO: Get this Y value from the config file once that's merged
-    y = 450
-    for line in debug_lines:
-        debug_line = create_debug_label(line, x_start, y, batch)
-        debug_content.append(debug_line)
-        y -= y_step
-
-    return debug_content

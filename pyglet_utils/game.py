@@ -38,7 +38,6 @@ class GameWindow(pyglet.window.Window):
         #END: test code for testing debug overlay
         self.debug_overlay_batch = pyglet.graphics.Batch()
         self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch)
-        self.debug_overlay.insert_debug_line(debuggable.Debuggable("Test", "test debug text"))
         self.debug_overlay.update_debug()
         if debug:
             self.debug = True
@@ -109,6 +108,7 @@ class GameWindow(pyglet.window.Window):
         # Handles key presses for menus, keyboard shortcuts, and debug menu(s)
         if symbol == key._0 or symbol == key.NUM_0:
             self.debug = not self.debug
+            print(self.debug_overlay.debug_lines[2].text)
             #START: debug overlay stuff
         if symbol == key.BRACKETLEFT:
             self.debug_overlay.insert_debug_line(self.test_debug)
