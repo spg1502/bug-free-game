@@ -1,9 +1,13 @@
+import random
+import string
+from time import time
+
 import pyglet
 import pyglet.clock
-from pyglet.window import key
-from pyglet_utils import utils, load, debug_overlay, debuggable
-from time import time
 import pyglet.gl as pgl
+from pyglet.window import key
+
+from pyglet_utils import utils, load, debug_overlay, debuggable
 
 pgl.glEnable(pgl.GL_BLEND)
 pgl.glBlendFunc(pgl.GL_SRC_ALPHA, pgl.GL_ONE_MINUS_SRC_ALPHA)
@@ -13,6 +17,7 @@ fps_cap = 120.0
 window_width = 800
 window_height = 450
 splash_screen_duration_in_seconds = 1
+
 
 # TODO: move this to its own separate class file
 class GameStates:
@@ -27,10 +32,13 @@ class GameWindow(pyglet.window.Window):
 
         self.game_state = GameStates.SPLASH_SCREEN
 
-        #TODO: Add FPS to debug overlay
+        # TODO: Add FPS to debug overlay
+        #START: test code for testing debug overlay
+        self.test_debug = debuggable.Debuggable("Test_debug", "test")
+        #END: test code for testing debug overlay
         self.debug_overlay_batch = pyglet.graphics.Batch()
         self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch)
-        self.debug_overlay.insert_debug_line(debuggable.Debuggable("Test", "this is how you add debug text"))
+        self.debug_overlay.insert_debug_line(debuggable.Debuggable("Test", "test debug text"))
         self.debug_overlay.update_debug()
         if debug:
             self.debug = True
@@ -67,7 +75,7 @@ class GameWindow(pyglet.window.Window):
         menu_label_texts = ["Start", "Exit"]
         return (
             utils.create_menu_labels(
-                menu_label_texts, 400, window_height - 150, batch=main_menu_batch
+                menu_label_texts, 400, window_height - 150, batch = main_menu_batch
             ),
             game_title,
         )
@@ -92,8 +100,8 @@ class GameWindow(pyglet.window.Window):
 
         if self.game_state == GameStates.SPLASH_SCREEN:
             if (
-                time() - splash_screen_duration_in_seconds
-                > self.splash_screen_has_been_visible_since
+                    time() - splash_screen_duration_in_seconds
+                    > self.splash_screen_has_been_visible_since
             ):
                 self.game_state = GameStates.MAIN_MENU
 
@@ -101,3 +109,9 @@ class GameWindow(pyglet.window.Window):
         # Handles key presses for menus, keyboard shortcuts, and debug menu(s)
         if symbol == key._0 or symbol == key.NUM_0:
             self.debug = not self.debug
+            #START: debug overlay stuff
+        if symbol == key.BRACKETLEFT:
+            self.debug_overlay.insert_debug_line(self.test_debug)
+        if symbol == key.BRACKETRIGHT:
+            self.test_debug.debug_text = (''.join(random.choice(string.ascii_letters) for i in range(5)))
+            #END: debug overlay stuff

@@ -11,6 +11,7 @@ class DebugOverlay:
         self.insert_debug_line(Debuggable("Debug Overlay", "(press 0 to toggle)"))
 
     def update_debug(self):
+        #TODO: instead of creating new debug overlays on each frame, instead UPDATE the label(s)
         debug_lines = []
         for line in self.debug_contents:
             debug_lines.append(line.get_debug_output())
