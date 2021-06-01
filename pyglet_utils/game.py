@@ -1,7 +1,7 @@
 import pyglet
 import pyglet.clock
 from pyglet.window import key
-from pyglet_utils import utils, load
+from pyglet_utils import utils, load, debug_overlay, debuggable
 from time import time
 import pyglet.gl as pgl
 
@@ -14,7 +14,7 @@ window_width = 800
 window_height = 450
 splash_screen_duration_in_seconds = 1
 
-
+# TODO: move this to its own separate class file
 class GameStates:
     SPLASH_SCREEN = 0
     MAIN_MENU = 1
@@ -27,21 +27,16 @@ class GameWindow(pyglet.window.Window):
 
         self.game_state = GameStates.SPLASH_SCREEN
 
-        # using pyglet batches to improve the efficiency of rendering sprites and text that appear together:
-        # https://pyglet.readthedocs.io/en/latest/modules/graphics/#batches-and-groups
+        #TODO: Add FPS to debug overlay
         self.debug_overlay_batch = pyglet.graphics.Batch()
-        self.fps_display = pyglet.clock.get_fps()
-        self.debug_overlay = self.create_debug_overlay(
-            [
-                "Debug Menu (press 0 to toggle):",
-                "FPS: " + str(pyglet.clock.get_fps()),
-                "Oh wait FPS is broken",
-            ],
-            self.debug_overlay_batch,
-        )
+        self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch)
+        self.debug_overlay.insert_debug_line(debuggable.Debuggable("Test", "this is how you add debug text"))
+        self.debug_overlay.update_debug()
         if debug:
             self.debug = True
 
+        # using pyglet batches to improve the efficiency of rendering sprites and text that appear together:
+        # https://pyglet.readthedocs.io/en/latest/modules/graphics/#batches-and-groups
         self.splash_screen_batch = pyglet.graphics.Batch()
         self.splash_screen_title, self.splash_screen_logo = self.create_splash_screen(
             self.splash_screen_batch
@@ -55,12 +50,6 @@ class GameWindow(pyglet.window.Window):
 
         # Now that all game elements are loaded, we can start calling update
         pyglet.clock.schedule_interval(self.update, 1.0 / fps_cap)
-
-    def create_debug_overlay(self, debug_messages, debug_overlay_batch):
-        debug_text = utils.create_debug_overlay(
-            debug_messages, batch=debug_overlay_batch
-        )
-        return debug_text
 
     def create_splash_screen(self, splash_screen_batch):
         splash_screen_title = utils.create_h1_label(
@@ -95,13 +84,11 @@ class GameWindow(pyglet.window.Window):
         # etc...
         if self.debug:
             self.debug_overlay_batch.draw()
-            pyglet.window.FPSDisplay(window=self).draw()
 
     def update(self, dt):
         if self.debug:
-            pass
+            self.debug_overlay.update_debug()
             # print(pyglet.clock.get_fps())
-            # TODO: update self.debug_overlay here to get live debug updates
 
         if self.game_state == GameStates.SPLASH_SCREEN:
             if (
