@@ -4,6 +4,7 @@ from pyglet.window import key
 from pyglet_utils import utils, load, config_loader
 from time import time
 import pyglet.gl as pgl
+import os
 
 pgl.glEnable(pgl.GL_BLEND)
 pgl.glBlendFunc(pgl.GL_SRC_ALPHA, pgl.GL_ONE_MINUS_SRC_ALPHA)
@@ -17,7 +18,7 @@ class GameStates:
 
 class GameWindow(pyglet.window.Window):
     def __init__(self, debug, *args, **kwargs):
-        self.config_loader = config_loader.ConfigLoader()
+        self.config_loader = config_loader.ConfigLoader(os.path.join(os.getcwd(), "game_config.cfg"))
         self.window_width = self.config_loader.get_window_width()
         self.window_height = self.config_loader.get_window_height()
         super(GameWindow, self).__init__(

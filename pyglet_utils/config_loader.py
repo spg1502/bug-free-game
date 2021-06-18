@@ -1,11 +1,10 @@
 import configparser
-import os
 
 
 class ConfigLoader(object):
-    def __init__(self):
+    def __init__(self, debug_file_path):
         self.config = configparser.ConfigParser()
-        self.config.read(os.path.join(os.getcwd(), "game_config.cfg"))
+        self.config.read(debug_file_path)
 
     def get_window_width(self):
         return int(self.config["window"]["window_width"])

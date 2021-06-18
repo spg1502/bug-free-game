@@ -2,7 +2,7 @@ import pyglet
 import os
 from pyglet_utils import config_loader
 
-config_loader = config_loader.ConfigLoader()
+config_loader = config_loader.ConfigLoader(os.path.join(os.getcwd(), "game_config.cfg"))
 
 
 def logo(x_start, y_start, batch=None):
