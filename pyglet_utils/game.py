@@ -81,6 +81,7 @@ class GameWindow(pyglet.window.Window):
 
     def on_draw(self):
         self.clear()
+        dt = pyglet.clock.tick()
 
         if self.game_state == GameStates.SPLASH_SCREEN:
             self.splash_screen_batch.draw()
