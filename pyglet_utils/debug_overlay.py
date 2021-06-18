@@ -11,7 +11,7 @@ class DebugOverlay:
     def __init__(self, batch):
         self.batch = batch
         self.insert_debug_line(
-            debuggable.Debuggable("Debug Overlay", "(press 0 to toggle)")
+            debuggable.Debuggable("Debug Menu: (press 0 to toggle)", False)
         )
 
     def update_debug(self):
