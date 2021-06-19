@@ -21,4 +21,5 @@ Our dev team currently uses PyCharm as our IDE, so the following instructions wi
 3. Make your changes
 4. Run the game to view your changes by using the `bug_free_game` run configuration
 5. Test your changes with `pytest`
+6. Format your changes from with `python -m black .`
 6. If you're happy with your changes, make a pull request with `git push origin HEAD:<branch name here>`

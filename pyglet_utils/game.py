@@ -30,9 +30,12 @@ class GameWindow(pyglet.window.Window):
         # using pyglet batches to improve the efficiency of rendering sprites and text that appear together:
         # https://pyglet.readthedocs.io/en/latest/modules/graphics/#batches-and-groups
         self.debug_overlay_batch = pyglet.graphics.Batch()
-        self.fps_display = pyglet.clock.get_fps()
         self.debug_overlay = self.create_debug_overlay(
-            ["Debug Menu:", "FPS: " + str(self.fps_display), "Oh wait FPS is broken"],
+            [
+                "Debug Menu:",
+                "FPS: " + str(pyglet.clock.get_fps()),
+                "Oh wait FPS is broken",
+            ],
             self.debug_overlay_batch,
         )
         if debug:
@@ -81,6 +84,7 @@ class GameWindow(pyglet.window.Window):
 
     def on_draw(self):
         self.clear()
+        dt = pyglet.clock.tick()
 
         if self.game_state == GameStates.SPLASH_SCREEN:
             self.splash_screen_batch.draw()
@@ -105,3 +109,8 @@ class GameWindow(pyglet.window.Window):
                 > self.splash_screen_has_been_visible_since
             ):
                 self.game_state = GameStates.MAIN_MENU
+
+    def on_key_press(self, symbol, modifiers):
+        # Handles key presses for menus, keyboard shortcuts, and debug menu(s)
+        if symbol == key._0:
+            self.debug = not self.debug
