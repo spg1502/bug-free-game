@@ -10,6 +10,6 @@ setup(
     version="0.0.0",
     description="A game which is totally free of bugs",
     long_description=long_description,
-    packages=["bug_free_game"],
+    packages=["pyglet_utils"],
     install_requires=["pyglet"],
 )
