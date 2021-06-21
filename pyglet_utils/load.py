@@ -1,13 +1,16 @@
 import pyglet
 import os
+from pyglet_utils import config_loader
 
-game_path = os.path.dirname(os.path.abspath(__file__))
-resources_path = os.path.join(game_path, "../resources/")
+config_loader = config_loader.ConfigLoader(os.path.join(os.getcwd(), "game_config.cfg"))
 
 
 def logo(x_start, y_start, batch=None):
+    logo_path = os.path.join(
+        os.getcwd(), config_loader.get_resources_path(), config_loader.get_game_logo()
+    )
     return pyglet.sprite.Sprite(
-        pyglet.image.load(resources_path + "game_logo_200x200.png"),
+        pyglet.image.load(logo_path),
         x=x_start,
         y=y_start,
         batch=batch,
