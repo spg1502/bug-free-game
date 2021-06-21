@@ -54,14 +54,3 @@ def create_debug_label(text, x_start=0, y_start=0, batch=None):
         color=(204, 0, 0, 255),
         batch=batch,
     )
-
-
-def create_debug_overlay(texts, x_start=0, batch=None, y_step=14):
-    debug_lines = []
-    y = pyglet.window.Window().height - 30
-    for i in range(len(texts)):
-        debug_line = create_debug_label(texts[i], x_start, y, batch)
-        debug_lines.append(debug_line)
-        y -= y_step
-
-    return debug_lines
