@@ -1,15 +1,15 @@
-from pyglet_utils import debuggable, utils
+from pyglet_utils import debuggable, utils, config_loader
 
 
 class DebugOverlay:
     debuggable_contents = []
     debug_lines = []
     batch = None
-    # TODO: get this Y value from the config once that's merged
-    y_pos = 450
+    y_pos = None
 
-    def __init__(self, batch):
+    def __init__(self, batch, y_pos):
         self.batch = batch
+        self.y_pos = y_pos
         self.insert_debug_line(
             debuggable.Debuggable("Debug Menu: (press 0 to toggle)", False)
         )

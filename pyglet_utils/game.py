@@ -23,7 +23,9 @@ class GameStates:
 
 class GameWindow(pyglet.window.Window):
     def __init__(self, debug, *args, **kwargs):
-        self.config_loader = config_loader.ConfigLoader(os.path.join(os.getcwd(), "game_config.cfg"))
+        self.config_loader = config_loader.ConfigLoader(
+            os.path.join(os.getcwd(), "game_config.cfg")
+        )
         self.window_width = self.config_loader.get_window_width()
         self.window_height = self.config_loader.get_window_height()
         super(GameWindow, self).__init__(
@@ -37,7 +39,9 @@ class GameWindow(pyglet.window.Window):
         self.test_debug = debuggable.Debuggable("test")
         # END: test code for testing debug overlay
         self.debug_overlay_batch = pyglet.graphics.Batch()
-        self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch)
+        self.debug_overlay = debug_overlay.DebugOverlay(
+            self.debug_overlay_batch, self.window_height
+        )
         self.debug_overlay.update_debug()
         if debug:
             self.debug = True
