@@ -37,7 +37,7 @@ class GameWindow(pyglet.window.Window):
         self.test_debug = debuggable.Debuggable("test")
         # END: test code for testing debug overlay
         self.debug_overlay_batch = pyglet.graphics.Batch()
-        self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch)
+        self.debug_overlay = debug_overlay.DebugOverlay(self.debug_overlay_batch, self.window_height)
         self.debug_overlay.update_debug()
         if debug:
             self.debug = True
