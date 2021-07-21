@@ -5,7 +5,14 @@ from time import time
 import pyglet
 import pyglet.clock
 from pyglet.window import key
-from pyglet_utils import utils, load, config_loader, debug_overlay, debuggable
+from pyglet_utils import (
+    utils,
+    load,
+    config_loader,
+    debug_overlay,
+    debuggable,
+    game_states,
+)
 from time import time
 import pyglet.gl as pgl
 import os
@@ -14,23 +21,18 @@ pgl.glEnable(pgl.GL_BLEND)
 pgl.glBlendFunc(pgl.GL_SRC_ALPHA, pgl.GL_ONE_MINUS_SRC_ALPHA)
 
 
-# TODO: move this to its own separate class file
-class GameStates:
-    SPLASH_SCREEN = 0
-    MAIN_MENU = 1
-    PLAYING = 2
-
-
 class GameWindow(pyglet.window.Window):
     def __init__(self, debug, *args, **kwargs):
-        self.config_loader = config_loader.ConfigLoader(os.path.join(os.getcwd(), "game_config.cfg"))
+        self.config_loader = config_loader.ConfigLoader(
+            os.path.join(os.getcwd(), "game_config.cfg")
+        )
         self.window_width = self.config_loader.get_window_width()
         self.window_height = self.config_loader.get_window_height()
         super(GameWindow, self).__init__(
             self.window_width, self.window_height, *args, **kwargs
         )
 
-        self.game_state = GameStates.SPLASH_SCREEN
+        self.game_state = game_states.GameStates.SPLASH_SCREEN.value
 
         # TODO: Add FPS to debug overlay
         # START: test code for testing debug overlay
@@ -87,9 +89,9 @@ class GameWindow(pyglet.window.Window):
         self.clear()
         dt = pyglet.clock.tick()
 
-        if self.game_state == GameStates.SPLASH_SCREEN:
+        if self.game_state == game_states.GameStates.SPLASH_SCREEN.value:
             self.splash_screen_batch.draw()
-        elif self.game_state == GameStates.MAIN_MENU:
+        elif self.game_state == game_states.GameStates.MAIN_MENU.value:
             self.main_menu_batch.draw()
         # elif self.game_state == GameStates.PLAYING:
         # self.game_batch.draw()
@@ -102,12 +104,12 @@ class GameWindow(pyglet.window.Window):
             self.debug_overlay.update_debug()
             # print(pyglet.clock.get_fps())
 
-        if self.game_state == GameStates.SPLASH_SCREEN:
+        if self.game_state == game_states.GameStates.SPLASH_SCREEN.value:
             if (
                 time() - self.splash_screen_duration_in_seconds
                 > self.splash_screen_has_been_visible_since
             ):
-                self.game_state = GameStates.MAIN_MENU
+                self.game_state = game_states.GameStates.MAIN_MENU.value
 
     def on_key_press(self, symbol, modifiers):
         # Handles key presses for menus, keyboard shortcuts, and debug menu(s)
